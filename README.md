@@ -12,12 +12,12 @@
 
 \* 定时自动打卡需要程序持续开启，退出或关机无效，建议部署到服务器如阿里云等。
 
-\** 微信推送结果需要http://sc.ftqq.com/支持，免费申请
+\** 微信推送结果需要http://sc.ftqq.com/ 支持，免费申请
 
 目前不足：
 - 若系统更新部分按钮的获取逻辑可能失效
 
-本脚本基于chrome和selenium，原理为模拟浏览器点击，支持linux系统部署。部分代码参考自https://github.com/buaalzm/fuckdaka以及https://github.com/colasama/buaa-ncov-hitcarder，两者各有一些不足之处，我整合了一下。
+本脚本基于chrome和selenium，原理为模拟浏览器点击，支持linux系统部署。部分代码参考自https://github.com/buaalzm/fuckdaka 以及 https://github.com/colasama/buaa-ncov-hitcarder ，两者各有一些不足之处，我整合了一下。
 
 
 ## 部署
@@ -26,7 +26,7 @@
 
 2、```pip install requests, selenium```
 
-3、下载Chromedriver:https://chromedriver.chromium.org/downloads
+3、下载对应版本Chromedriver:https://chromedriver.chromium.org/downloads
 
 4、放到一个环境变量能找到的位置或者配置该位置为环境变量（自行百度）
 

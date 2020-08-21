@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 user = ""  # 你的统一认证账号
 passwd = ""  # 你的统一认证密码json
-position = ("123.122222", "33.333333")  # 定位，经纬度，找个网页地图查一查，
+position = ("111.11111", "33.3333333")  # 定位，经纬度
 SCKEY = ""  # 微信推送api，到http://sc.ftqq.com/ 免费申请，不需要请留空
 
 set_time = [(0, 5)]  # (小时，分钟)， 如果多个时间可以写成[(h, m),(h, m)]的形式
@@ -122,7 +122,8 @@ def login():
 
 def main():  # 0:05进行打卡
     logger.info("正在进行验证...")
-    flag, _ = login()  # 测试能否进入网页以及用户名密码是否正确
+    flag, browser = login()  # 测试能否进入网页以及用户名密码是否正确
+    browser.quit()
     if not flag:
         exit(0)
     while True:
