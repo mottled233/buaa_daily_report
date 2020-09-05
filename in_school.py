@@ -134,7 +134,7 @@ def main():  # 0:05进行打卡
     while True:
         while True:
             # time_up = True  # debug
-            time_up = True
+            time_up = False
             now = datetime.datetime.now()
             for hour, minute in set_time:
                 if now.hour == hour and now.minute == minute:
