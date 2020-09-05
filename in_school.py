@@ -14,8 +14,7 @@ user = ""  # 你的统一认证账号
 passwd = ""  # 你的统一认证密码json
 position = ("39.97805900941237", "116.34515751812742")  # 定位，经纬度
 SCKEY = ""  # 微信推送api，到http://sc.ftqq.com/ 免费申请，不需要请留空
-
-set_time = [(18, 5)]  # (小时，分钟)， 如果多个时间可以写成[(h, m),(h, m)]的形式
+set_time = [(18, 12)]  # (小时，分钟)， 如果多个时间可以写成[(h, m),(h, m)]的形式
 max_attempt = 5  # 失败重复五次
 
 
@@ -33,8 +32,8 @@ def daka():
     location_button.click()
     logger.info("成功输入经纬度")
 
-    tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]")
-    tiwen.click()
+    tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]/span[1]")
+    ActionChains(browser).move_to_element(tiwen).click(tiwen).perform()
     logger.info("成功输入体温")
 
     # 点击提交
