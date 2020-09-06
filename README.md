@@ -1,9 +1,9 @@
-# 北航每日自动打卡脚本 v0.1
+# 北航每日自动打卡脚本 v1.1
 
-每日打卡一次我就忍了，每日打卡三次耍猴呢？不做人了！自动打卡机器上线！
+虽然到了学校还是没听打卡一次，但是我根本记不住啊！！不做人了！自动打卡机器上线！
 
 功能列表：
-- 打卡
+- 在校打卡、不在校打卡
 - 自定义定位
 - 检测登录是否成功和网页能否打开
 - 定时自动打卡*
@@ -14,8 +14,6 @@
 
 \** 微信推送结果需要http://sc.ftqq.com/ 支持，免费申请
 
-目前不足：
-- 若系统更新部分按钮的获取逻辑可能失效
 
 本脚本基于chrome和selenium，原理为模拟浏览器点击，支持linux系统部署。部分代码参考自https://github.com/buaalzm/fuckdaka 以及 https://github.com/colasama/buaa-ncov-hitcarder ，两者各有一些不足之处，我整合了一下。
 
@@ -36,7 +34,7 @@ from selenium import webdriver
 browser = webdriver.Chrome()
 browser.get("https://www.baidu.com/")
 ````
-6、下载main.py并运行
+6、下载main.py或in_school.py并修改其中关键信息，运行
 ```
 python main.py
 ```
