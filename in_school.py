@@ -31,7 +31,8 @@ def daka():
 
     location_button = browser.find_element_by_css_selector('div[name=area]>input')
     ActionChains(browser).move_to_element(location_button).click(location_button).perform()
-    logger.info("成功输入经纬度")
+    location = location_button.get_attribute('value')
+    logger.info(f"成功输入经纬度，定位{location}")
 
     tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]/span[1]")
     ActionChains(browser).move_to_element(tiwen).click(tiwen).perform()
