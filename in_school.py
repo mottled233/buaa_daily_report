@@ -29,25 +29,28 @@ def daka():
                            "success(position);}")
 
     location_button = browser.find_element_by_css_selector('div[name=area]>input')
-    browser.execute_script("arguments[0].click();", location_button)
+    location_button.click()
     logger.info("成功输入经纬度")
 
     tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]/span[1]")
-    browser.execute_script("arguments[0].click();", tiwen)
+    tiwen.click()
     logger.info("成功输入体温")
 
     # 点击提交
     submit_button = browser.find_element_by_css_selector(
-        'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a')
-    browser.execute_script("arguments[0].click();", submit_button)
+        'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a > em')
+    submit_button.click()
 
     browser.implicitly_wait(3)
     while True:
         try:
-            confirm_button = browser.find_element_by_css_selector('#wapcf > div > div.wapcf-btn-box > div.wapcf-btn.wapcf-btn-ok')
+            submit_button = browser.find_element_by_css_selector('body > #wapcf > div > div.wapcf-btn-box > div.wapcf-btn-ok')
+            submit_button.click()
+            body = browser.find_element_by_css_selector('body')
+            confirm_button = browser.find_element_by_css_selector('body > #wapcf > div > div.wapcf-btn-box > div')
             result = '提交成功'
             break
-        except:
+        except Exception as e:
             try:
                 confirm_button = browser.find_element_by_css_selector('#wapat > div > div.wapat-btn-box > div')
                 reason = browser.find_element_by_css_selector('#wapat > div > div.wapat-title').text
@@ -56,7 +59,7 @@ def daka():
             except:
                 time.sleep(1)
 
-    browser.execute_script("arguments[0].click();", confirm_button)
+    # confirm_button.click()
 
     logger.info(result)
 
