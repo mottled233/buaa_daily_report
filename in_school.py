@@ -27,23 +27,27 @@ def daka():
                            "var position = {\"coords\" : {\"latitude\": \"" + position[0] + "\",\"longitude\": \""
                            + position[1] + "\"}};" +
                            "success(position);}")
+    time.sleep(5)
 
     location_button = browser.find_element_by_css_selector('div[name=area]>input')
-    location_button.click()
+    ActionChains(browser).move_to_element(location_button).click(location_button).perform()
     logger.info("成功输入经纬度")
 
     tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]/span[1]")
-    tiwen.click()
+    ActionChains(browser).move_to_element(tiwen).click(tiwen).perform()
     logger.info("成功输入体温")
 
     # 点击提交
     submit_button = browser.find_element_by_css_selector(
-        'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a > em')
+        'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a')
     submit_button.click()
 
     browser.implicitly_wait(3)
     while True:
         try:
+            if submit_button.text.find("submitted") != -1:
+                result = "打卡失败，您已经提交过。"
+                break
             submit_button = browser.find_element_by_css_selector('body > #wapcf > div > div.wapcf-btn-box > div.wapcf-btn-ok')
             submit_button.click()
             body = browser.find_element_by_css_selector('body')
