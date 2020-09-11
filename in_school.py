@@ -31,6 +31,7 @@ def daka():
 
     location_button = browser.find_element_by_css_selector('div[name=area]>input')
     ActionChains(browser).move_to_element(location_button).click(location_button).perform()
+    time.sleep(2)
     location = location_button.get_attribute('value')
     logger.info(f"成功输入经纬度，定位{location}")
 
@@ -47,7 +48,10 @@ def daka():
     while True:
         try:
             if submit_button.text.find("submitted") != -1:
-                result = "打卡失败，您已经提交过。"
+                result = "打卡失败，您已经提交过"
+                break
+            elif submit_button.text.find("未到填报时间") != -1:
+                result = "未到填报时间"
                 break
             submit_button = browser.find_element_by_css_selector('body > #wapcf > div > div.wapcf-btn-box > div.wapcf-btn-ok')
             submit_button.click()
@@ -173,3 +177,4 @@ if __name__ == "__main__":
     logger.addHandler(ch)
     logger.setLevel(logging.INFO)
     main()
+
