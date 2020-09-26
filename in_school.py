@@ -39,6 +39,10 @@ def daka():
     ActionChains(browser).move_to_element(tiwen).click(tiwen).perform()
     logger.info("成功输入体温")
 
+    sfzx = browser.find_element_by_xpath("//div[@name='sfzx']/div/div[1]/span[1]")
+    ActionChains(browser).move_to_element(sfzx).click(sfzx).perform()
+    logger.info("成功确定在校")
+
     # 点击提交
     submit_button = browser.find_element_by_css_selector(
         'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a')
