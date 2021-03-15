@@ -17,7 +17,6 @@ SCKEY = ""  # 微信推送api，到http://sc.ftqq.com/ 免费申请，不需要�
 set_time = [(18, 12)]  # (小时，分钟)， 如果多个时间可以写成[(h, m),(h, m)]的形式
 max_attempt = 5  # 失败重复五次
 
-
 def daka():
     login_flag, browser = login()
     if not login_flag:
@@ -28,24 +27,19 @@ def daka():
                            + position[1] + "\"}};" +
                            "success(position);}")
     time.sleep(5)
-
-    location_button = browser.find_element_by_css_selector('div[name=area]>input')
+    
+    # /html/body/div[1]/div[1]/div[2]/div[5]/div/div[2]/div[2]/div[2]/input
+    location_button = browser.find_element_by_css_selector('body > div.buaaStudentNcov > div.buaaStudentNcov-bg > div > div:nth-child(5) > div > div.warp-list-choose > div.warp-list.two-warp-list.warp-list-margin > div.title-input.title-input-mergin-left')
+    browser.save_screenshot('location_test.png')
     ActionChains(browser).move_to_element(location_button).click(location_button).perform()
     time.sleep(2)
     location = location_button.get_attribute('value')
     logger.info(f"成功输入经纬度，定位{location}")
 
-    tiwen = browser.find_element_by_xpath("//div[@name='tw']/div/div[2]/span[1]")
-    ActionChains(browser).move_to_element(tiwen).click(tiwen).perform()
-    logger.info("成功输入体温")
-
-    sfzx = browser.find_element_by_xpath("//div[@name='sfzx']/div/div[1]/span[1]")
-    ActionChains(browser).move_to_element(sfzx).click(sfzx).perform()
-    logger.info("成功确定在校")
-
+    # /html/body/div[1]/div[1]/div[2]/div[6]
     # 点击提交
-    submit_button = browser.find_element_by_css_selector(
-        'body > div.item-buydate.form-detail2.ncov-page > div > div > section > div.list-box > div > a')
+    submit_button = browser.find_element_by_xpath(
+        '/html/body/div[1]/div[1]/div/div[6]/a')
     submit_button.click()
 
     browser.implicitly_wait(3)
@@ -90,9 +84,9 @@ def login():
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     browser = webdriver.Chrome(chrome_options=chrome_options)
-
+    
     try:
-        url = "https://app.buaa.edu.cn/uc/wap/login?redirect=https%3A%2F%2Fapp.buaa.edu.cn%2Fsite%2Fncov%2Fxisudailyup"
+        url = "https://app.buaa.edu.cn/uc/wap/login?redirect=https%3A%2F%2Fapp.buaa.edu.cn%2Fsite%2FbuaaStudentNcov%2Findex"
         browser.get(url)
 
         # 账号密码
@@ -118,7 +112,7 @@ def login():
     # 这样写是为了等待跳转页面加载出来
     fail_cnt = 0
     while True:
-        location_button = browser.find_elements_by_css_selector('div[name=area]>input')
+        location_button = browser.find_elements_by_css_selector('body > div.buaaStudentNcov > div.buaaStudentNcov-bg > div > div:nth-child(5) > div > div.warp-list-choose > div.warp-list.two-warp-list.warp-list-margin > div.title-input.title-input-mergin-left')
         if len(location_button) > 0:
             logger.info("登录成功")
             return True, browser
@@ -135,7 +129,7 @@ def login():
                 logger.info("登录超时超过最大尝试次数")
                 return False, None
             time.sleep(10)
-            browser.get("https://app.buaa.edu.cn/site/ncov/xisudailyup")
+            browser.get("https://app.buaa.edu.cn/site/buaaStudentNcov/index")
             logger.info("登录超时，正在重试")
             fail_cnt += 1
 
